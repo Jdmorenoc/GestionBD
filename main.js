@@ -1,9 +1,47 @@
 import express from "express"   
 import { createClient, REDIS_FLUSH_MODES } from "redis";
+import { MongoClient, ObjectId } from "mongodb";
 const app = express();
 
-const redis = createClient({ url : 'redis://localhost:6379' });
-redis.connect();
+// const redis = createClient({ url : 'redis://localhost:6379' });
+// redis.connect();
+
+//Driver :// usuario : contraseña @ ip : port / nombre_basedatos
+const client = new MongoClient("mongodb://localhost:27017")
+
+
+const connection = async()=> { 
+    try{
+        await client.connect();
+        return client.db("test")
+    }catch(e){
+        console.log("======== ERROR ========");
+        console.log(e);
+    }
+}
+
+
+app.get("/post", async (req,res)=> {
+    const db = await connection();
+    const tournaments = db.collection("tournaments")
+    const result = tournaments.insertOne({
+        "nombre": 'Juan',
+        "apellido": 'Moreno'
+    })
+    res.json(result)
+})
+
+app.get("/getMongo/:id", async(req,res)=> {
+    const { id } = req.params;
+    const db = await connection();
+    const tournaments = db.collection("tournaments")
+    const objectId = new ObjectId(id)
+    const result = await tournaments.findOne( { nombre: 'Juan' } )
+    console.log(id, objectId);
+    res.json(result)
+
+})
+
 
 
 app.get("/save", async(req, res)=> {
@@ -77,3 +115,4 @@ res.send(response)
 app.listen(8000, ()=> {
     console.log("Hello");
 })
+

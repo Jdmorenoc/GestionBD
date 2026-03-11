@@ -3,6 +3,8 @@ import { createClient, REDIS_FLUSH_MODES } from "redis";
 import { MongoClient, ObjectId } from "mongodb";
 const app = express();
 
+app.use(express.json())
+
 // const redis = createClient({ url : 'redis://localhost:6379' });
 // redis.connect();
 
@@ -31,6 +33,46 @@ app.get("/post", async (req,res)=> {
     res.json(result)
 })
 
+app.post("/saveTournament", async (req,res) => {
+    const db = await connection();
+    const tournaments = db.collection("tournaments")
+    console.log(req.body);
+    const result = await tournaments.insertOne(req.body);
+    res.json(result);
+})
+
+// $ne es diferente
+// $gt es mayor que
+// $gte es mayor e igual que
+// $lt es menor que
+
+app.get("/getTorneo", async(req,res)=> {
+    const db = await connection();
+    const tournaments = db.collection("tournaments")
+    const filtro = {
+        // location : 'Ocaña',
+        // premio: {$lte : 800},
+        // tag : { $in : ['NBA', 'juego'] },
+        // premio : { $nin : [600 , 650] }
+        premio : { $lt : 1000},
+        location : 'Cucuta'
+    };
+    const view = {
+        nombre : 1,
+        premio : 1,
+    }
+    const data = await tournaments.find(filtro, view).toArray();
+    res.json(data)
+})
+
+app.post("/saveTorneos", async (req,res)=> {
+    const db = await connection();
+    const tournaments = db.collection("tournaments")
+    const result = await tournaments.insertMany(req.body)
+    res.json(result);
+
+})
+
 app.get("/getMongo/:id", async(req,res)=> {
     const { id } = req.params;
     const db = await connection();
@@ -41,7 +83,6 @@ app.get("/getMongo/:id", async(req,res)=> {
     res.json(result)
 
 })
-
 
 
 app.get("/save", async(req, res)=> {

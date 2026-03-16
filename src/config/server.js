@@ -10,7 +10,9 @@ export default class Server{
 
     async connectionDB(){}
 
-    middleware(){}
+    middleware(){
+        this.app.use(express.json())
+    }
 
     route(){
         this.app.use(IndexRoute);

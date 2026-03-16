@@ -85,31 +85,24 @@ app.get("/getMongo/:id", async(req,res)=> {
 })
 
 
-app.get("/save", async(req, res)=> {
-    const json = {
-        "nombre": "Juan",
-        "apellido": "Moreno"
-    }
-    await redis.set(
-        'info:03578',
-        JSON.stringify(json),
-        {
-            EX: 300
-        }
+// app.get("/save", async(req, res)=> {
+//     const json = {
+//         "nombre": "Juan",
+//         "apellido": "Moreno"
+//     }
+//     await redis.set(
+//         'info:03578',
+//         JSON.stringify(json),
+//         {
+//             EX: 300
+//         }
 
-    )
+//     )
 
-    res.send("Hola");
-})
+//     res.send("Hola");
+// })
 
-app.get("/get", async (req, res)=> {
-    const data = await redis.get('info:03578');
-    console.log(data);
-    const json = JSON.parse(data);
-    console.log(json)
-    res.send(data)
 
-})
 
 
 app.get("/update", async(req, res) => {

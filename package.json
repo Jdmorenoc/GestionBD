@@ -6,15 +6,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon .",
-    "prod": "node ."
+    "prod": "node .",
+    "restore": "node ./database/restore.js",
+    "backup": "node ./database/backup.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "firebase-admin": "^13.9.0",
+    "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.1.0",
+    "nodemailer": "^8.0.7",
     "nodemon": "^3.1.14",
     "pg-promise": "^12.6.1",
     "redis": "^5.11.0"

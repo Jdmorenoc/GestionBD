@@ -1,8 +1,10 @@
-# MODULES
+###> MODULES <###
 /node_modules/
 
-# EDITORES
+###> EDITORES<###
 .vscode
 
-# ENVIRONMENTS
+##> ENVIRONMENTS <###
 .env
+
+/src/config/apuestas-a52fc-firebase-adminsdk-fbsvc-c265aad36c.json

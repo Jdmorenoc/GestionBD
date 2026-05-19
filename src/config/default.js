@@ -1,17 +1,18 @@
-import dotenv from 'dotenv'
+import dotenv from "dotenv"
 dotenv.config()
 
-export const ENVIRONENT = {
+export const ENVIRONMENT = {
     port: process.env.PORT || 3000,
-    redisURL: process.env.REDIS_DB_URL || '',
-    mongoURL: process.env.MONGO_DB_URL || '',
-    emailURL: process.env.PASSWORD_EMAIL || '',
-};
+    redisUrl: process.env.REDIS_DB_URL || '',
+    mongoUrl: process.env.MONGO_DB_URL || '',
+    passwordEmail: process.env.PASSWORD_EMAIL || '',
+    passwordSecret: process.env.PASSWORD_SECRET || ''
+}
 
-export const getEnv = (name)=> {
-    if(!ENVIRONENT[name]){
-        console.log('Variable no existe');
+export const getEnv = (name) => {
+    if(!ENVIRONMENT[name]){
+        console.log("Variables no existe")
         return '';
     }
-    return ENVIRONENT[name];
+    return ENVIRONMENT[name];
 }

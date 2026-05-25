@@ -4,8 +4,8 @@ import UsuarioRouter from './usuario.router.js';
 import EventoRouter from "./evento.router.js";
 import ApuestaRouter from "./apuesta.router.js";
 import AuthRouter from "./auth.router.js";
-import { sendEmail } from '../services/email.service.js';
-import { db } from '../services/firebase.service.js';
+//import { sendEmail } from '../services/email.service.js';
+//import { db } from '../services/firebase.service.js';
 
 const router = Router();
 // router.use(ApuestaRoute);
@@ -27,12 +27,12 @@ router.use("/email", async (req,res) =>{
 router.use("/firebase-insert", async (req,res) =>{
 
     try{
-        const dockRef = await db.collection("usuario").add(
-            {
-                name: "Nombre de Prueba",
-                apellido: "Apellido de Prueba",
-            }
-        )
+        // const dockRef = await db.collection("usuario").add(
+        //     {
+        //         name: "Nombre de Prueba",
+        //         apellido: "Apellido de Prueba",
+        //     }
+        // )
 
         res.send({data:dockRef, success:true})
 
